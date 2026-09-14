@@ -18,13 +18,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Oro Barbershop — Terävä leikkaus" },
+      { title: "Oro Barbershop - Terävä leikkaus" },
       {
         name: "description",
         content:
           "Oro Barbershop, Norkkokuja 3, 00790 Helsinki. Klassiset leikkaukset, terävät fadet ja perinteiset parranajot.",
       },
-      { property: "og:title", content: "Oro Barbershop — Terävä leikkaus" },
+      { property: "og:title", content: "Oro Barbershop - Terävä leikkaus" },
       {
         property: "og:description",
         content:
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    <div id="top" className="flex min-h-screen flex-col bg-background text-foreground">
       <Header />
       <main className="flex-1">
         <HeroSection />
@@ -57,7 +57,7 @@ function Logo({ className = "h-10 w-10" }: { className?: string }) {
     <img
       src={logoAsset.url}
       alt="Oro Barbershop -logo"
-      className={`${className} object-cover`}
+      className={`${className} rounded-full object-cover`}
       loading="eager"
     />
   );
@@ -67,7 +67,7 @@ function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <a href="#" className="flex items-center gap-3">
+        <a href="#top" className="flex items-center gap-3">
           <Logo className="h-9 w-9" />
           <span className="text-sm font-semibold tracking-[0.18em] uppercase">Oro</span>
         </a>
@@ -109,7 +109,7 @@ function Header() {
 function HeroSection() {
   return (
     <section className="border-b border-border px-5 py-20 sm:px-8 sm:py-28 lg:py-36">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
+      <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           <div className="inline-flex items-center gap-2 border border-border px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
             <MapPin className="h-3 w-3" />
@@ -144,12 +144,6 @@ function HeroSection() {
                 {INSTAGRAM_HANDLE}
               </a>
             </Button>
-          </div>
-        </div>
-
-        <div className="flex justify-start lg:justify-end">
-          <div className="border border-border p-2">
-            <Logo className="h-56 w-56 sm:h-72 sm:w-72" />
           </div>
         </div>
       </div>
@@ -199,12 +193,12 @@ function ServicesSection() {
 }
 
 const hours = [
-  ["Maanantai", "00–00"],
-  ["Tiistai", "00–00"],
-  ["Keskiviikko", "00–00"],
-  ["Torstai", "00–00"],
-  ["Perjantai", "00–00"],
-  ["Lauantai", "00–00"],
+  ["Maanantai", "00-00"],
+  ["Tiistai", "00-00"],
+  ["Keskiviikko", "00-00"],
+  ["Torstai", "00-00"],
+  ["Perjantai", "00-00"],
+  ["Lauantai", "00-00"],
   ["Sunnuntai", "Suljettu"],
 ];
 
@@ -269,7 +263,7 @@ function BookingSection() {
           <div className="border border-border p-8 sm:p-10">
             <h3 className="text-lg font-semibold">Walk-in tervetullut</h3>
             <p className="mt-3 text-muted-foreground">
-              Ei varausta? Ei hätää. Tule paikan päälle — otamme asiakkaita vastaan myös ilman ajanvarausta.
+              Ei varausta? Ei hätää. Tule paikan päälle - otamme asiakkaita vastaan myös ilman ajanvarausta.
             </p>
           </div>
         </div>
