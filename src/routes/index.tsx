@@ -102,6 +102,23 @@ function Header() {
           </a>
         </Button>
       </div>
+
+      <nav className="flex items-center gap-6 overflow-x-auto border-t border-border px-5 py-3 md:hidden">
+        {[
+          ["Palvelut", "#palvelut"],
+          ["Aukioloajat", "#aukioloajat"],
+          ["Ajanvaraus", "#ajanvaraus"],
+          ["Sijainti", "#sijainti"],
+        ].map(([label, href]) => (
+          <a
+            key={href}
+            href={href}
+            className="shrink-0 text-[11px] tracking-[0.16em] uppercase text-muted-foreground"
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
     </header>
   );
 }
