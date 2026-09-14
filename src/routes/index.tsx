@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Phone, MapPin, Instagram, Clock, ArrowUpRight } from "lucide-react";
+import { Phone, MapPin, Instagram, Clock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import logoAsset from "@/assets/oro-logo.png.asset.json";
@@ -18,13 +18,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Oro Barbershop — Terävä tukka. Ei kiemuroita." },
+      { title: "Oro Barbershop — Terävä leikkaus" },
       {
         name: "description",
         content:
-          "Oro Barbershop, Norkkokuja 3, 00790 Helsinki. Klassiset leikkaukset, terävät fadet ja perinteiset parranajot. Varaa aika puhelimitse tai tule walk-inina.",
+          "Oro Barbershop, Norkkokuja 3, 00790 Helsinki. Klassiset leikkaukset, terävät fadet ja perinteiset parranajot.",
       },
-      { property: "og:title", content: "Oro Barbershop — Terävä tukka. Ei kiemuroita." },
+      { property: "og:title", content: "Oro Barbershop — Terävä leikkaus" },
       {
         property: "og:description",
         content:
@@ -57,7 +57,7 @@ function Logo({ className = "h-10 w-10" }: { className?: string }) {
     <img
       src={logoAsset.url}
       alt="Oro Barbershop -logo"
-      className={`${className} rounded-full object-cover`}
+      className={`${className} object-cover`}
       loading="eager"
     />
   );
@@ -65,14 +65,14 @@ function Logo({ className = "h-10 w-10" }: { className?: string }) {
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/85 backdrop-blur">
-      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
         <a href="#" className="flex items-center gap-3">
-          <Logo className="h-11 w-11" />
-          <span className="font-display text-base tracking-[0.32em] uppercase">Oro</span>
+          <Logo className="h-9 w-9" />
+          <span className="text-sm font-semibold tracking-[0.18em] uppercase">Oro</span>
         </a>
 
-        <nav className="hidden items-center gap-10 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           {[
             ["Palvelut", "#palvelut"],
             ["Aukioloajat", "#aukioloajat"],
@@ -82,16 +82,16 @@ function Header() {
             <a
               key={href}
               href={href}
-              className="text-xs tracking-[0.18em] uppercase text-muted-foreground transition-colors hover:text-foreground"
+              className="text-[11px] tracking-[0.16em] uppercase text-muted-foreground transition-colors hover:text-foreground"
             >
               {label}
             </a>
           ))}
         </nav>
 
-        <Button asChild size="sm" className="hidden rounded-none px-5 tracking-[0.12em] uppercase md:inline-flex">
+        <Button asChild size="sm" className="hidden rounded-none px-4 text-[11px] tracking-[0.14em] uppercase md:inline-flex">
           <a href={PHONE_HREF}>
-            <Phone className="h-4 w-4" />
+            <Phone className="h-3.5 w-3.5" />
             {PHONE_NUMBER}
           </a>
         </Button>
@@ -108,27 +108,26 @@ function Header() {
 
 function HeroSection() {
   return (
-    <section className="invert-surface bg-background text-foreground">
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[1.15fr_0.85fr] lg:py-40">
-        <div className="max-w-xl">
-          <div className="inline-flex items-center gap-2 border border-border px-3 py-1.5 text-[11px] tracking-[0.22em] uppercase text-muted-foreground">
-            <MapPin className="h-3.5 w-3.5" />
+    <section className="border-b border-border px-5 py-20 sm:px-8 sm:py-28 lg:py-36">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2 border border-border px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+            <MapPin className="h-3 w-3" />
             {STREET} · {POSTAL}
           </div>
 
-          <h1 className="font-display mt-8 text-5xl leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
-            Terävä tukka.
+          <h1 className="font-display mt-8 text-6xl leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">
+            TERÄVÄ
             <br />
-            <span className="italic text-muted-foreground">Ei kiemuroita.</span>
+            LEIKKAUS.
           </h1>
 
-          <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
             Klassiset leikkaukset, terävät fadet ja perinteiset parranajot huolellisella kädellä.
-            Tule sellaisena kuin olet — lähdet parempana versiona.
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="rounded-none tracking-[0.12em] uppercase">
+            <Button asChild size="lg" className="rounded-none text-xs tracking-[0.14em] uppercase">
               <a href={PHONE_HREF}>
                 <Phone className="h-4 w-4" />
                 Varaa aika: {PHONE_NUMBER}
@@ -138,7 +137,7 @@ function HeroSection() {
               asChild
               size="lg"
               variant="outline"
-              className="rounded-none tracking-[0.12em] uppercase"
+              className="rounded-none text-xs tracking-[0.14em] uppercase"
             >
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
                 <Instagram className="h-4 w-4" />
@@ -146,24 +145,11 @@ function HeroSection() {
               </a>
             </Button>
           </div>
-
-          <dl className="mt-14 grid max-w-md grid-cols-3 gap-6 border-t border-border pt-8">
-            {[
-              ["Walk-in", "Tervetullut"],
-              ["Palvelut", "8 palvelua"],
-              ["Sijainti", POSTAL],
-            ].map(([k, v]) => (
-              <div key={k}>
-                <dt className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">{k}</dt>
-                <dd className="mt-1 text-sm">{v}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
 
-        <div className="flex justify-center lg:justify-end">
-          <div className="flex h-72 w-72 items-center justify-center rounded-full border border-border sm:h-80 sm:w-80">
-            <Logo className="h-56 w-56 sm:h-64 sm:w-64" />
+        <div className="flex justify-start lg:justify-end">
+          <div className="border border-border p-2">
+            <Logo className="h-56 w-56 sm:h-72 sm:w-72" />
           </div>
         </div>
       </div>
@@ -172,48 +158,41 @@ function HeroSection() {
 }
 
 const services = [
-  { title: "Hiustenleikkaus", desc: "Klassinen leikkaus ja viimeistely.", price: "00 €" },
-  { title: "Fade", desc: "Terävä häivytys tarkalla kädellä.", price: "00 €" },
-  { title: "Konekone", desc: "Nopea ja siisti koneleikkaus.", price: "00 €" },
-  { title: "Leikkaus + parta", desc: "Täyspaketti päästä leukaan.", price: "00 €" },
-  { title: "Parranajo", desc: "Perinteinen partaveitsiajo.", price: "00 €" },
-  { title: "Parran muotoilu", desc: "Rajaus, trimmaus ja hoito.", price: "00 €" },
-  { title: "Lasten leikkaus", desc: "Rauhallinen leikkaus nuorille.", price: "00 €" },
-  { title: "Muotoilu & viimeistely", desc: "Pesu, muotoilu ja tuotteet.", price: "00 €" },
+  { name: "Palvelu 1", price: "00 €" },
+  { name: "Palvelu 2", price: "00 €" },
+  { name: "Palvelu 3", price: "00 €" },
+  { name: "Palvelu 4", price: "00 €" },
+  { name: "Palvelu 5", price: "00 €" },
+  { name: "Palvelu 6", price: "00 €" },
+  { name: "Palvelu 7", price: "00 €" },
+  { name: "Palvelu 8", price: "00 €" },
 ];
 
 function ServicesSection() {
   return (
-    <section id="palvelut" className="border-t border-border px-5 py-24 sm:px-8">
+    <section id="palvelut" className="px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-xl">
-          <span className="text-[11px] tracking-[0.24em] uppercase text-muted-foreground">
-            Palvelut
-          </span>
-          <h2 className="font-display mt-4 text-4xl tracking-tight sm:text-5xl">Mitä teemme</h2>
-          <p className="mt-4 text-muted-foreground">
-            Kahdeksan palvelua, yksi standardi. Hinnat päivitetään pian — kysy tarkemmat hinnat
-            puhelimitse.
-          </p>
+          <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">Palvelut</span>
+          <h2 className="font-display mt-3 text-4xl tracking-tight sm:text-5xl">Hinnasto</h2>
         </div>
 
-        <div className="mt-14 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-12 border-t border-border">
           {services.map((s, i) => (
-            <div
-              key={s.title}
-              className="group flex flex-col justify-between bg-background p-7 transition-colors hover:bg-accent"
+            <li
+              key={s.name}
+              className="flex items-center justify-between border-b border-border py-5 transition-colors hover:bg-muted/30"
             >
-              <span className="font-display text-sm text-muted-foreground">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div className="mt-10">
-                <h3 className="font-display text-xl">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-                <p className="mt-5 text-xs tracking-[0.18em] uppercase">{s.price}</p>
+              <div className="flex items-baseline gap-4">
+                <span className="text-[10px] tracking-[0.16em] uppercase text-muted-foreground">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-base font-medium">{s.name}</span>
               </div>
-            </div>
+              <span className="text-[11px] tracking-[0.14em] uppercase text-muted-foreground">{s.price}</span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
@@ -231,31 +210,22 @@ const hours = [
 
 function HoursSection() {
   return (
-    <section
-      id="aukioloajat"
-      className="invert-surface border-t border-border bg-background px-5 py-24 text-foreground sm:px-8"
-    >
-      <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[0.9fr_1.1fr]">
+    <section id="aukioloajat" className="invert-surface border-y border-border bg-background px-5 py-20 text-foreground sm:px-8 sm:py-28">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.8fr_1fr] lg:gap-20">
         <div className="max-w-md">
-          <span className="text-[11px] tracking-[0.24em] uppercase text-muted-foreground">
-            Aukioloajat
-          </span>
-          <h2 className="font-display mt-4 text-4xl tracking-tight sm:text-5xl">Milloin auki</h2>
-          <p className="mt-4 text-muted-foreground">
-            Ajat ovat paikanvaraajia — kerro oikeat kellonajat, niin päivitän ne heti. Soittamalla
-            saat aina tuoreimman tilanteen.
-          </p>
-          <div className="mt-8 inline-flex items-center gap-2 border border-border px-4 py-2 text-xs tracking-[0.18em] uppercase">
-            <Clock className="h-4 w-4" />
+          <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">Aukioloajat</span>
+          <h2 className="font-display mt-3 text-4xl tracking-tight sm:text-5xl">Milloin olemme auki</h2>
+          <div className="mt-8 inline-flex items-center gap-2 border border-border px-4 py-2 text-[10px] tracking-[0.14em] uppercase">
+            <Clock className="h-3.5 w-3.5" />
             Walk-in tervetullut
           </div>
         </div>
 
-        <ul className="divide-y divide-border border-y border-border">
+        <ul className="border-t border-border">
           {hours.map(([day, time]) => (
-            <li key={day} className="flex items-center justify-between py-4">
-              <span className="text-sm tracking-[0.08em] uppercase">{day}</span>
-              <span className="font-display text-base text-muted-foreground">{time}</span>
+            <li key={day} className="flex items-center justify-between border-b border-border py-4">
+              <span className="text-sm tracking-[0.06em] uppercase">{day}</span>
+              <span className="text-sm text-muted-foreground">{time}</span>
             </li>
           ))}
         </ul>
@@ -266,54 +236,42 @@ function HoursSection() {
 
 function BookingSection() {
   return (
-    <section id="ajanvaraus" className="border-t border-border px-5 py-24 sm:px-8">
-      <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-2">
-        <div className="max-w-md">
-          <span className="text-[11px] tracking-[0.24em] uppercase text-muted-foreground">
-            Ajanvaraus
-          </span>
-          <h2 className="font-display mt-4 text-4xl tracking-tight sm:text-5xl">
-            Varaa puhelimitse
-          </h2>
-          <p className="mt-4 text-muted-foreground">
-            Soita suoraan ja sovi sinulle sopiva aika. Yksi puhelu, ei sovelluksia.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="rounded-none tracking-[0.12em] uppercase">
-              <a href={PHONE_HREF}>
-                <Phone className="h-4 w-4" />
-                Soita {PHONE_NUMBER}
-              </a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="rounded-none tracking-[0.12em] uppercase"
-            >
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-                <Instagram className="h-4 w-4" />
-                {INSTAGRAM_HANDLE}
-              </a>
-            </Button>
+    <section id="ajanvaraus" className="px-5 py-20 sm:px-8 sm:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
+          <div className="max-w-md">
+            <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">Ajanvaraus</span>
+            <h2 className="font-display mt-3 text-4xl tracking-tight sm:text-5xl">Varaa puhelimitse</h2>
+            <p className="mt-4 text-muted-foreground">
+              Soita suoraan ja sovi sinulle sopiva aika.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" className="rounded-none text-xs tracking-[0.14em] uppercase">
+                <a href={PHONE_HREF}>
+                  <Phone className="h-4 w-4" />
+                  Soita {PHONE_NUMBER}
+                </a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="rounded-none text-xs tracking-[0.14em] uppercase"
+              >
+                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
+                  <Instagram className="h-4 w-4" />
+                  {INSTAGRAM_HANDLE}
+                </a>
+              </Button>
+            </div>
           </div>
-        </div>
 
-        <div className="border border-border p-8 sm:p-10">
-          <h3 className="font-display text-2xl">Walk-in tervetullut</h3>
-          <p className="mt-3 text-muted-foreground">
-            Ei varausta? Ei hätää. Tule paikan päälle — otamme asiakkaita vastaan myös ilman
-            ajanvarausta, kun tuolissa on tilaa.
-          </p>
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase underline underline-offset-4"
-          >
-            Katso työt Instagramissa
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
+          <div className="border border-border p-8 sm:p-10">
+            <h3 className="text-lg font-semibold">Walk-in tervetullut</h3>
+            <p className="mt-3 text-muted-foreground">
+              Ei varausta? Ei hätää. Tule paikan päälle — otamme asiakkaita vastaan myös ilman ajanvarausta.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -322,55 +280,44 @@ function BookingSection() {
 
 function LocationSection() {
   return (
-    <section id="sijainti" className="border-t border-border px-5 py-24 sm:px-8">
+    <section id="sijainti" className="border-t border-border px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-xl">
-          <span className="text-[11px] tracking-[0.24em] uppercase text-muted-foreground">
-            Sijainti
-          </span>
-          <h2 className="font-display mt-4 text-4xl tracking-tight sm:text-5xl">Tule käymään</h2>
-          <p className="mt-4 text-muted-foreground">
-            Löydät meidät osoitteesta {STREET}, {POSTAL}.
-          </p>
+          <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">Sijainti</span>
+          <h2 className="font-display mt-3 text-4xl tracking-tight sm:text-5xl">Tule käymään</h2>
         </div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-3">
+        <div className="mt-12 grid gap-8 lg:grid-cols-3">
           <div className="space-y-8 border border-border p-8">
             <div>
-              <h3 className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground">
-                Osoite
-              </h3>
+              <h3 className="text-[10px] tracking-[0.16em] uppercase text-muted-foreground">Osoite</h3>
               <a
                 href={GOOGLE_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display mt-2 flex items-center gap-2 text-lg underline underline-offset-4"
+                className="mt-2 flex items-center gap-2 text-lg font-medium underline underline-offset-4"
               >
                 <MapPin className="h-4 w-4" />
                 {STREET}, {POSTAL}
               </a>
             </div>
             <div>
-              <h3 className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground">
-                Puhelin
-              </h3>
+              <h3 className="text-[10px] tracking-[0.16em] uppercase text-muted-foreground">Puhelin</h3>
               <a
                 href={PHONE_HREF}
-                className="font-display mt-2 flex items-center gap-2 text-lg underline underline-offset-4"
+                className="mt-2 flex items-center gap-2 text-lg font-medium underline underline-offset-4"
               >
                 <Phone className="h-4 w-4" />
                 {PHONE_NUMBER}
               </a>
             </div>
             <div>
-              <h3 className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground">
-                Instagram
-              </h3>
+              <h3 className="text-[10px] tracking-[0.16em] uppercase text-muted-foreground">Instagram</h3>
               <a
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display mt-2 flex items-center gap-2 text-lg underline underline-offset-4"
+                className="mt-2 flex items-center gap-2 text-lg font-medium underline underline-offset-4"
               >
                 <Instagram className="h-4 w-4" />
                 {INSTAGRAM_HANDLE}
@@ -397,12 +344,12 @@ function LocationSection() {
 
 function Footer() {
   return (
-    <footer className="invert-surface bg-background px-5 py-14 text-foreground sm:px-8">
+    <footer className="invert-surface border-t border-border bg-background px-5 py-12 text-foreground sm:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3">
-            <Logo className="h-12 w-12" />
-            <span className="font-display text-sm tracking-[0.3em] uppercase">Oro Barbershop</span>
+            <Logo className="h-10 w-10" />
+            <span className="text-sm font-semibold tracking-[0.18em] uppercase">Oro Barbershop</span>
           </div>
 
           <div className="flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:gap-8">
@@ -426,7 +373,7 @@ function Footer() {
           </div>
         </div>
 
-        <p className="mt-10 text-[11px] tracking-[0.16em] uppercase text-muted-foreground">
+        <p className="mt-10 text-[10px] tracking-[0.14em] uppercase text-muted-foreground">
           © {new Date().getFullYear()} Oro Barbershop
         </p>
       </div>
