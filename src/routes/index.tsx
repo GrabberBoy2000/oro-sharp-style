@@ -161,9 +161,10 @@ function HeroSection() {
           </dl>
         </div>
 
-        <div className="relative flex justify-center lg:justify-end">
-          <div className="absolute inset-x-8 top-8 bottom-8 border border-border" aria-hidden="true" />
-          <Logo className="relative h-64 w-64 sm:h-80 sm:w-80" />
+        <div className="flex justify-center lg:justify-end">
+          <div className="flex h-72 w-72 items-center justify-center rounded-full border border-border sm:h-80 sm:w-80">
+            <Logo className="h-56 w-56 sm:h-64 sm:w-64" />
+          </div>
         </div>
       </div>
     </section>
