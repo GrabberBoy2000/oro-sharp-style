@@ -1,11 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Phone, MapPin, Instagram, Scissors, Sparkles, Crown } from "lucide-react";
+import { Phone, MapPin, Instagram, Clock, ArrowUpRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import logoAsset from "@/assets/oro-logo.png.asset.json";
 
 const PHONE_NUMBER = "041 796 2012";
 const PHONE_HREF = "tel:+358417962012";
-const ADDRESS = "Norkkokuja 3";
+const STREET = "Norkkokuja 3";
+const POSTAL = "00790 Helsinki";
+const ADDRESS = `${STREET}, ${POSTAL}`;
 const MAPS_LINK = `https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 const GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
 const INSTAGRAM_HANDLE = "@orobarbershop2";
@@ -19,13 +22,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Oro Barbershop Norkkokuja 3:la. Klassiset hiustenleikkaukset, modernit fadet, partaveden ajot ja viimeistellyt lookit. Varaa aika tai tule walk-inina.",
+          "Oro Barbershop, Norkkokuja 3, 00790 Helsinki. Klassiset leikkaukset, terävät fadet ja perinteiset parranajot. Varaa aika puhelimitse tai tule walk-inina.",
       },
       { property: "og:title", content: "Oro Barbershop — Terävä tukka. Ei kiemuroita." },
       {
         property: "og:description",
         content:
-          "Oro Barbershop Norkkokuja 3:la. Klassiset hiustenleikkaukset, modernit fadet, partaveden ajot ja viimeistellyt lookit.",
+          "Klassiset leikkaukset, terävät fadet ja perinteiset parranajot. Norkkokuja 3, 00790 Helsinki.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -40,6 +43,7 @@ function Index() {
       <main className="flex-1">
         <HeroSection />
         <ServicesSection />
+        <HoursSection />
         <BookingSection />
         <LocationSection />
       </main>
@@ -48,39 +52,53 @@ function Index() {
   );
 }
 
+function Logo({ className = "h-10 w-10" }: { className?: string }) {
+  return (
+    <img
+      src={logoAsset.url}
+      alt="Oro Barbershop -logo"
+      className={`${className} rounded-full object-cover`}
+      loading="eager"
+    />
+  );
+}
+
 function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#" className="flex items-center gap-2">
-          <Crown className="h-6 w-6 text-primary" />
-          <span className="text-lg font-bold tracking-wider text-foreground uppercase">
-            Oro Barbershop
-          </span>
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/85 backdrop-blur">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8">
+        <a href="#" className="flex items-center gap-3">
+          <Logo className="h-11 w-11" />
+          <span className="font-display text-base tracking-[0.32em] uppercase">Oro</span>
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          <a href="#palvelut" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-            Palvelut
-          </a>
-          <a href="#ajanvaraus" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-            Ajanvaraus
-          </a>
-          <a href="#sijainti" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-            Sijainti
-          </a>
+        <nav className="hidden items-center gap-10 md:flex">
+          {[
+            ["Palvelut", "#palvelut"],
+            ["Aukioloajat", "#aukioloajat"],
+            ["Ajanvaraus", "#ajanvaraus"],
+            ["Sijainti", "#sijainti"],
+          ].map(([label, href]) => (
+            <a
+              key={href}
+              href={href}
+              className="text-xs tracking-[0.18em] uppercase text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {label}
+            </a>
+          ))}
         </nav>
 
-        <Button asChild size="sm" className="hidden md:inline-flex">
+        <Button asChild size="sm" className="hidden rounded-none px-5 tracking-[0.12em] uppercase md:inline-flex">
           <a href={PHONE_HREF}>
             <Phone className="h-4 w-4" />
             {PHONE_NUMBER}
           </a>
         </Button>
 
-        <Button asChild size="icon" variant="ghost" className="md:hidden" aria-label="Soita">
+        <Button asChild size="icon" variant="outline" className="rounded-none md:hidden" aria-label="Soita">
           <a href={PHONE_HREF}>
-            <Phone className="h-5 w-5 text-primary" />
+            <Phone className="h-5 w-5" />
           </a>
         </Button>
       </div>
@@ -90,87 +108,108 @@ function Header() {
 
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,oklch(0.75_0.15_85/0.12),transparent_50%)]" />
-      <div className="mx-auto max-w-4xl text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-1.5 text-sm font-medium text-primary">
-          <MapPin className="h-4 w-4" />
-          {ADDRESS}
+    <section className="invert-surface bg-background text-foreground">
+      <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[1.15fr_0.85fr] lg:py-40">
+        <div className="max-w-xl">
+          <div className="inline-flex items-center gap-2 border border-border px-3 py-1.5 text-[11px] tracking-[0.22em] uppercase text-muted-foreground">
+            <MapPin className="h-3.5 w-3.5" />
+            {STREET} · {POSTAL}
+          </div>
+
+          <h1 className="font-display mt-8 text-5xl leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
+            Terävä tukka.
+            <br />
+            <span className="italic text-muted-foreground">Ei kiemuroita.</span>
+          </h1>
+
+          <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Klassiset leikkaukset, terävät fadet ja perinteiset parranajot huolellisella kädellä.
+            Tule sellaisena kuin olet — lähdet parempana versiona.
+          </p>
+
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg" className="rounded-none tracking-[0.12em] uppercase">
+              <a href={PHONE_HREF}>
+                <Phone className="h-4 w-4" />
+                Varaa aika: {PHONE_NUMBER}
+              </a>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="rounded-none tracking-[0.12em] uppercase"
+            >
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
+                <Instagram className="h-4 w-4" />
+                {INSTAGRAM_HANDLE}
+              </a>
+            </Button>
+          </div>
+
+          <dl className="mt-14 grid max-w-md grid-cols-3 gap-6 border-t border-border pt-8">
+            {[
+              ["Walk-in", "Tervetullut"],
+              ["Palvelut", "8 palvelua"],
+              ["Sijainti", POSTAL],
+            ].map(([k, v]) => (
+              <div key={k}>
+                <dt className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">{k}</dt>
+                <dd className="mt-1 text-sm">{v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        <h1 className="mt-8 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-7xl">
-          Terävä tukka.
-          <br />
-          <span className="text-primary">Ei kiemuroita.</span>
-        </h1>
-
-        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-          Klassiset leikkaukset, terävät fadet ja perinteiset parranajot huolellisella kädellä. Tule
-          sellaisena kuin olet — lähdet parempana versiona.
-        </p>
-
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Button asChild size="lg" className="w-full sm:w-auto">
-            <a href={PHONE_HREF}>
-              <Phone className="h-5 w-5" />
-              Varaa aika: {PHONE_NUMBER}
-            </a>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-              <Instagram className="h-5 w-5" />
-              {INSTAGRAM_HANDLE}
-            </a>
-          </Button>
+        <div className="relative flex justify-center lg:justify-end">
+          <div className="absolute inset-x-8 top-8 bottom-8 border border-border" aria-hidden="true" />
+          <Logo className="relative h-64 w-64 sm:h-80 sm:w-80" />
         </div>
       </div>
     </section>
   );
 }
 
-function ServicesSection() {
-  const services = [
-    {
-      icon: Scissors,
-      title: "Hiustenleikkaus",
-      description: "Klassinen leikkaus tai moderni fade — aina siisti lopputulos.",
-    },
-    {
-      icon: Sparkles,
-      title: "Parranajo & muotoilu",
-      description: "Perinteinen partaveitsiajo ja parran trimmaus tarkalla kädellä.",
-    },
-    {
-      icon: Crown,
-      title: "Muotoilu & viimeistely",
-      description: "Viimeistele look laadukkailla tuotteilla ja tyylillä.",
-    },
-  ];
+const services = [
+  { title: "Hiustenleikkaus", desc: "Klassinen leikkaus ja viimeistely.", price: "00 €" },
+  { title: "Fade", desc: "Terävä häivytys tarkalla kädellä.", price: "00 €" },
+  { title: "Konekone", desc: "Nopea ja siisti koneleikkaus.", price: "00 €" },
+  { title: "Leikkaus + parta", desc: "Täyspaketti päästä leukaan.", price: "00 €" },
+  { title: "Parranajo", desc: "Perinteinen partaveitsiajo.", price: "00 €" },
+  { title: "Parran muotoilu", desc: "Rajaus, trimmaus ja hoito.", price: "00 €" },
+  { title: "Lasten leikkaus", desc: "Rauhallinen leikkaus nuorille.", price: "00 €" },
+  { title: "Muotoilu & viimeistely", desc: "Pesu, muotoilu ja tuotteet.", price: "00 €" },
+];
 
+function ServicesSection() {
   return (
-    <section id="palvelut" className="border-t border-border px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-16 max-w-2xl">
-          <h2 className="text-sm font-semibold uppercase tracking-widest text-primary">Palvelut</h2>
-          <p className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Mitä teemme
-          </p>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Jokainen asiakas saa täyden huomion ja lopputuloksen, joka sopii juuri sinulle.
+    <section id="palvelut" className="border-t border-border px-5 py-24 sm:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-xl">
+          <span className="text-[11px] tracking-[0.24em] uppercase text-muted-foreground">
+            Palvelut
+          </span>
+          <h2 className="font-display mt-4 text-4xl tracking-tight sm:text-5xl">Mitä teemme</h2>
+          <p className="mt-4 text-muted-foreground">
+            Kahdeksan palvelua, yksi standardi. Hinnat päivitetään pian — kysy tarkemmat hinnat
+            puhelimitse.
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+        <div className="mt-14 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {services.map((s, i) => (
             <div
-              key={service.title}
-              className="group rounded-2xl border border-border bg-card p-8 transition-colors hover:border-primary/50"
+              key={s.title}
+              className="group flex flex-col justify-between bg-background p-7 transition-colors hover:bg-accent"
             >
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <service.icon className="h-6 w-6" />
+              <span className="font-display text-sm text-muted-foreground">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="mt-10">
+                <h3 className="font-display text-xl">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                <p className="mt-5 text-xs tracking-[0.18em] uppercase">{s.price}</p>
               </div>
-              <h3 className="mt-6 text-xl font-semibold text-foreground">{service.title}</h3>
-              <p className="mt-3 leading-relaxed text-muted-foreground">{service.description}</p>
             </div>
           ))}
         </div>
@@ -179,52 +218,101 @@ function ServicesSection() {
   );
 }
 
+const hours = [
+  ["Maanantai", "00–00"],
+  ["Tiistai", "00–00"],
+  ["Keskiviikko", "00–00"],
+  ["Torstai", "00–00"],
+  ["Perjantai", "00–00"],
+  ["Lauantai", "00–00"],
+  ["Sunnuntai", "Suljettu"],
+];
+
+function HoursSection() {
+  return (
+    <section
+      id="aukioloajat"
+      className="invert-surface border-t border-border bg-background px-5 py-24 text-foreground sm:px-8"
+    >
+      <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="max-w-md">
+          <span className="text-[11px] tracking-[0.24em] uppercase text-muted-foreground">
+            Aukioloajat
+          </span>
+          <h2 className="font-display mt-4 text-4xl tracking-tight sm:text-5xl">Milloin auki</h2>
+          <p className="mt-4 text-muted-foreground">
+            Ajat ovat paikanvaraajia — kerro oikeat kellonajat, niin päivitän ne heti. Soittamalla
+            saat aina tuoreimman tilanteen.
+          </p>
+          <div className="mt-8 inline-flex items-center gap-2 border border-border px-4 py-2 text-xs tracking-[0.18em] uppercase">
+            <Clock className="h-4 w-4" />
+            Walk-in tervetullut
+          </div>
+        </div>
+
+        <ul className="divide-y divide-border border-y border-border">
+          {hours.map(([day, time]) => (
+            <li key={day} className="flex items-center justify-between py-4">
+              <span className="text-sm tracking-[0.08em] uppercase">{day}</span>
+              <span className="font-display text-base text-muted-foreground">{time}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function BookingSection() {
   return (
-    <section id="ajanvaraus" className="border-t border-border px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div>
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-primary">
-              Ajanvaraus
-            </h2>
-            <p className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Varaa helposti puhelimitse
-            </p>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Soita suoraan ja sovi sinulle sopiva aika. Palvelemme arkisin ja viikonloppuisin.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Button asChild size="lg" className="w-full sm:w-auto">
-                <a href={PHONE_HREF}>
-                  <Phone className="h-5 w-5" />
-                  Soita {PHONE_NUMBER}
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-                  <Instagram className="h-5 w-5" />
-                  {INSTAGRAM_HANDLE}
-                </a>
-              </Button>
-            </div>
+    <section id="ajanvaraus" className="border-t border-border px-5 py-24 sm:px-8">
+      <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-2">
+        <div className="max-w-md">
+          <span className="text-[11px] tracking-[0.24em] uppercase text-muted-foreground">
+            Ajanvaraus
+          </span>
+          <h2 className="font-display mt-4 text-4xl tracking-tight sm:text-5xl">
+            Varaa puhelimitse
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Soita suoraan ja sovi sinulle sopiva aika. Yksi puhelu, ei sovelluksia.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg" className="rounded-none tracking-[0.12em] uppercase">
+              <a href={PHONE_HREF}>
+                <Phone className="h-4 w-4" />
+                Soita {PHONE_NUMBER}
+              </a>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="rounded-none tracking-[0.12em] uppercase"
+            >
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
+                <Instagram className="h-4 w-4" />
+                {INSTAGRAM_HANDLE}
+              </a>
+            </Button>
           </div>
+        </div>
 
-          <div className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-transparent p-8 sm:p-10">
-            <div className="flex items-start gap-4">
-              <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <Sparkles className="h-6 w-6" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-foreground">Walk-in tervetullut</h3>
-                <p className="mt-3 text-muted-foreground">
-                  Ei varausta? Ei hätää. Tule paikan päälle — otamme vastaan asiakkaita myös ilman
-                  ajanvarausta, kun tuolissa on tilaa.
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="border border-border p-8 sm:p-10">
+          <h3 className="font-display text-2xl">Walk-in tervetullut</h3>
+          <p className="mt-3 text-muted-foreground">
+            Ei varausta? Ei hätää. Tule paikan päälle — otamme asiakkaita vastaan myös ilman
+            ajanvarausta, kun tuolissa on tilaa.
+          </p>
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase underline underline-offset-4"
+          >
+            Katso työt Instagramissa
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
       </div>
     </section>
@@ -233,59 +321,69 @@ function BookingSection() {
 
 function LocationSection() {
   return (
-    <section id="sijainti" className="border-t border-border px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-12 max-w-2xl">
-          <h2 className="text-sm font-semibold uppercase tracking-widest text-primary">Sijainti</h2>
-          <p className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Tule käymään
-          </p>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Löydät meidät Norkkokuja 3:sta. Olemme täällä, jotta voit lähteä paremman näköisenä.
+    <section id="sijainti" className="border-t border-border px-5 py-24 sm:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-xl">
+          <span className="text-[11px] tracking-[0.24em] uppercase text-muted-foreground">
+            Sijainti
+          </span>
+          <h2 className="font-display mt-4 text-4xl tracking-tight sm:text-5xl">Tule käymään</h2>
+          <p className="mt-4 text-muted-foreground">
+            Löydät meidät osoitteesta {STREET}, {POSTAL}.
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-3">
-          <div className="rounded-2xl border border-border bg-card p-8 lg:col-span-1">
-            <h3 className="text-lg font-semibold text-foreground">Osoite</h3>
-            <a
-              href={GOOGLE_MAPS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-2 text-primary transition-colors hover:text-primary/80"
-            >
-              <MapPin className="h-4 w-4" />
-              {ADDRESS}
-            </a>
-
-            <h3 className="mt-8 text-lg font-semibold text-foreground">Puhelin</h3>
-            <a
-              href={PHONE_HREF}
-              className="mt-2 inline-flex items-center gap-2 text-primary transition-colors hover:text-primary/80"
-            >
-              <Phone className="h-4 w-4" />
-              {PHONE_NUMBER}
-            </a>
-
-            <h3 className="mt-8 text-lg font-semibold text-foreground">Instagram</h3>
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-2 text-primary transition-colors hover:text-primary/80"
-            >
-              <Instagram className="h-4 w-4" />
-              {INSTAGRAM_HANDLE}
-            </a>
+        <div className="mt-14 grid gap-8 lg:grid-cols-3">
+          <div className="space-y-8 border border-border p-8">
+            <div>
+              <h3 className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground">
+                Osoite
+              </h3>
+              <a
+                href={GOOGLE_MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-display mt-2 flex items-center gap-2 text-lg underline underline-offset-4"
+              >
+                <MapPin className="h-4 w-4" />
+                {STREET}, {POSTAL}
+              </a>
+            </div>
+            <div>
+              <h3 className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground">
+                Puhelin
+              </h3>
+              <a
+                href={PHONE_HREF}
+                className="font-display mt-2 flex items-center gap-2 text-lg underline underline-offset-4"
+              >
+                <Phone className="h-4 w-4" />
+                {PHONE_NUMBER}
+              </a>
+            </div>
+            <div>
+              <h3 className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground">
+                Instagram
+              </h3>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-display mt-2 flex items-center gap-2 text-lg underline underline-offset-4"
+              >
+                <Instagram className="h-4 w-4" />
+                {INSTAGRAM_HANDLE}
+              </a>
+            </div>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-border lg:col-span-2">
+          <div className="overflow-hidden border border-border lg:col-span-2">
             <iframe
               title="Oro Barbershop sijainti"
               src={MAPS_LINK}
               width="100%"
               height="100%"
-              className="min-h-[360px] w-full border-0 lg:min-h-[420px]"
+              className="min-h-[360px] w-full border-0 grayscale lg:min-h-[440px]"
               loading="lazy"
               allowFullScreen
             />
@@ -298,42 +396,37 @@ function LocationSection() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border bg-card px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+    <footer className="invert-surface bg-background px-5 py-14 text-foreground sm:px-8">
+      <div className="mx-auto max-w-6xl">
         <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
-          <div className="flex items-center gap-2">
-            <Crown className="h-6 w-6 text-primary" />
-            <span className="text-lg font-bold tracking-wider text-foreground uppercase">
-              Oro Barbershop
-            </span>
+          <div className="flex items-center gap-3">
+            <Logo className="h-12 w-12" />
+            <span className="font-display text-sm tracking-[0.3em] uppercase">Oro Barbershop</span>
           </div>
 
-          <div className="flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:items-center sm:gap-6">
+          <div className="flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:gap-8">
             <span className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-primary" />
-              {ADDRESS}
+              <MapPin className="h-4 w-4" />
+              {STREET}, {POSTAL}
             </span>
-            <a
-              href={PHONE_HREF}
-              className="flex items-center gap-2 transition-colors hover:text-foreground"
-            >
-              <Phone className="h-4 w-4 text-primary" />
+            <a href={PHONE_HREF} className="flex items-center gap-2 hover:text-foreground">
+              <Phone className="h-4 w-4" />
               {PHONE_NUMBER}
             </a>
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 transition-colors hover:text-foreground"
+              className="flex items-center gap-2 hover:text-foreground"
             >
-              <Instagram className="h-4 w-4 text-primary" />
+              <Instagram className="h-4 w-4" />
               {INSTAGRAM_HANDLE}
             </a>
           </div>
         </div>
 
-        <p className="mt-8 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Oro Barbershop. Kaikki oikeudet pidätetään.
+        <p className="mt-10 text-[11px] tracking-[0.16em] uppercase text-muted-foreground">
+          © {new Date().getFullYear()} Oro Barbershop
         </p>
       </div>
     </footer>
