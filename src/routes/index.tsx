@@ -2,8 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Phone, MapPin, Instagram, Clock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import logoAsset from "@/assets/oro-logo.png.asset.json";
-import barberHeroAsset from "@/assets/barber-hero.jpg.asset.json";
+import logoUrl from "@/assets/oro-logo.png";
+import barberHeroUrl from "@/assets/barber-hero.jpg";
 
 const PHONE_NUMBER = "041 796 2012";
 const PHONE_HREF = "tel:+358417962012";
@@ -56,7 +56,7 @@ function Index() {
 function Logo({ className = "h-10 w-10" }: { className?: string }) {
   return (
     <img
-      src={logoAsset.url}
+      src={logoUrl}
       alt="Oro Barbershop -logo"
       className={`${className} rounded-full object-cover`}
       loading="eager"
@@ -167,7 +167,7 @@ function HeroSection() {
 
         <div className="relative aspect-[4/5] w-full overflow-hidden border border-border">
           <img
-            src={barberHeroAsset.url}
+            src={barberHeroUrl}
             alt="Parturi työssään"
             className="h-full w-full object-cover"
             loading="eager"
