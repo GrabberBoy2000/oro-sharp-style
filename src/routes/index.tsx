@@ -3,6 +3,7 @@ import { Phone, MapPin, Instagram, Clock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import logoAsset from "@/assets/oro-logo.png.asset.json";
+import barberHeroAsset from "@/assets/barber-hero.jpg.asset.json";
 
 const PHONE_NUMBER = "041 796 2012";
 const PHONE_HREF = "tel:+358417962012";
