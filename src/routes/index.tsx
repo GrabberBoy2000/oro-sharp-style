@@ -56,7 +56,7 @@ function Index() {
 function Logo({ className = "h-10 w-10" }: { className?: string }) {
   return (
     <img
-      src={logoAsset.url}
+      src={logoUrl}
       alt="Oro Barbershop -logo"
       className={`${className} rounded-full object-cover`}
       loading="eager"
@@ -167,7 +167,7 @@ function HeroSection() {
 
         <div className="relative aspect-[4/5] w-full overflow-hidden border border-border">
           <img
-            src={barberHeroAsset.url}
+            src={barberHeroUrl}
             alt="Parturi työssään"
             className="h-full w-full object-cover"
             loading="eager"
