@@ -127,11 +127,11 @@ function Header() {
 function HeroSection() {
   return (
     <section className="border-b border-border px-5 py-20 sm:px-8 sm:py-28 lg:py-36">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
         <div className="max-w-2xl">
           <div className="inline-flex items-center gap-2 border border-border px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
             <MapPin className="h-3 w-3" />
-            {STREET} · {POSTAL}
+            {STREET} - {POSTAL}
           </div>
 
           <h1 className="font-display mt-8 text-6xl leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">
@@ -163,6 +163,15 @@ function HeroSection() {
               </a>
             </Button>
           </div>
+        </div>
+
+        <div className="relative aspect-[4/5] w-full overflow-hidden border border-border">
+          <img
+            src={barberHeroAsset.url}
+            alt="Parturi työssään"
+            className="h-full w-full object-cover"
+            loading="eager"
+          />
         </div>
       </div>
     </section>
