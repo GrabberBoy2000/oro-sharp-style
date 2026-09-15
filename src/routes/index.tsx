@@ -179,14 +179,14 @@ function HeroSection() {
 }
 
 const services = [
-  { name: "Palvelu 1", price: "00 €" },
-  { name: "Palvelu 2", price: "00 €" },
-  { name: "Palvelu 3", price: "00 €" },
-  { name: "Palvelu 4", price: "00 €" },
-  { name: "Palvelu 5", price: "00 €" },
-  { name: "Palvelu 6", price: "00 €" },
-  { name: "Palvelu 7", price: "00 €" },
-  { name: "Palvelu 8", price: "00 €" },
+  { name: "Hiustenleikkaus", price: "25 €" },
+  { name: "Eläkeläisille", price: "20 €" },
+  { name: "Lapsille (alle 12 v)", price: "20 €" },
+  { name: "Parranajo", price: "15 €" },
+  { name: "Parran muotoilu", price: "20 €" },
+  { name: "Langalla siistiminen", price: "10 €" },
+  { name: "Nenäkarvojen vahaus", price: "5 €" },
+  { name: "Hius design", price: "5 €" },
 ];
 
 function ServicesSection() {
@@ -220,13 +220,13 @@ function ServicesSection() {
 }
 
 const hours = [
-  ["Maanantai", "00-00"],
-  ["Tiistai", "00-00"],
-  ["Keskiviikko", "00-00"],
-  ["Torstai", "00-00"],
-  ["Perjantai", "00-00"],
-  ["Lauantai", "00-00"],
-  ["Sunnuntai", "Suljettu"],
+  ["Maanantai", "9-19"],
+  ["Tiistai", "9-19"],
+  ["Keskiviikko", "9-19"],
+  ["Torstai", "9-19"],
+  ["Perjantai", "9-19"],
+  ["Lauantai", "9-19"],
+  ["Sunnuntai", "12-18"],
 ];
 
 function HoursSection() {
